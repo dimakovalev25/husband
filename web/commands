@@ -1,0 +1,2 @@
+npx nuxt generate
+npx nuxt dev

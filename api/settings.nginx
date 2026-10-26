@@ -1,0 +1,79 @@
+
+root /var/www/web/.output/public;   # статика Nuxt
+
+# пути Laravel уходят в php-fpm
+location ~ ^/(login|register|logout|forgot-password|reset-password|dashboard|profile|api|build|storage|sanctum) {
+    root /var/www/api/public;
+    try_files $uri /index.php?$query_string;
+}
+location ~ \.php$ {
+    root /var/www/api/public;
+    fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
+
+# всё остальное — Nuxt
+location / { try_files $uri $uri/ $uri/index.html =404; }
+
+
+
+
+как работать с вязке laravel/nuxt
+
+
+Локально nginx тебе не нужен, он нужен только на боевом сервере. На Windows проще запускать два dev-сервера в двух терминалах:
+
+bash
+# терминал 1: Laravel
+cd api
+php artisan serve        # http://localhost:8000
+
+# терминал 2: Nuxt
+cd web
+npm run dev              # http://localhost:3000
+Вариант A (Breeze + Blade) локально
+
+Страницы Laravel живут на :8000, Nuxt на :3000. Ссылку на вход сделай через конфиг, чтобы на проде просто поменять на /login:
+
+js
+// nuxt.config
+runtimeConfig: { public: { laravelUrl: 'http://localhost:8000' } }
+vue
+<a :href="`${$config.public.laravelUrl}/login`">Войти</a>
+
+В .env на проде поставишь NUXT_PUBLIC_LARAVEL_URL= (пусто), и ссылки станут относительными /login.
+
+Вариант B (Sanctum + формы в Nuxt) локально
+
+Куки не различают порты, поэтому localhost:3000 и localhost:8000 для них один сайт. Всё заводится так.
+
+api/.env:
+
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:3000
+SESSION_DOMAIN=localhost
+SANCTUM_STATEFUL_DOMAINS=localhost:3000
+
+api/config/cors.php:
+
+php
+'paths' => ['api/*', 'login', 'register', 'logout', 'sanctum/csrf-cookie'],
+'allowed_origins' => ['http://localhost:3000'],
+'supports_credentials' => true,
+
+web/nuxt.config:
+
+js
+runtimeConfig: { public: { apiBase: 'http://localhost:8000' } }
+
+Заходи именно на http://localhost:3000, не на 127.0.0.1, иначе куки не совпадут с SESSION_DOMAIN и CSRF будет падать с 419.
+
+Если всё-таки нужен nginx на Windows
+
+Проще всего Laragon (laragon.org): внутри nginx + PHP + автоматические домены вида api.test. Кладёшь проект в C:\laragon\www\api, и он сразу открывается по http://api.test. Ручной вариант (скачать nginx.exe с nginx.org, C:\nginx\conf\nginx.conf, php-cgi.exe -b 127.0.0.1:9000 вместо php-fpm) работает, но возни больше, и под Windows он нестабильнее.
+
+Где nginx понадобится по-настоящему
+
+На VPS с Linux (Ubuntu): /etc/nginx/sites-available/example.by, симлинк в sites-enabled, nginx -t && systemctl reload nginx, плюс certbot для HTTPS. Тот конфиг, что я давал раньше, пойдёт именно туда.
+
