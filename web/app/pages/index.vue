@@ -17,23 +17,29 @@ useSeoMeta({
 });
 
 useHead({
-  htmlAttrs: { lang: "ru" },
-  meta: [{ name: "theme-color", content: "#f7f5ef" }]
+  htmlAttrs: {lang: "ru"},
+  meta: [{name: "theme-color", content: "#f7f5ef"}]
 });
 </script>
 
 <template>
   <div class="handyman-site">
-    <div class="section-wrap"><SiteHeader /></div>
+    <div class="section-wrap">
+      <SiteHeader/>
+    </div>
     <main>
-      <div class="hero-shell"><div class="section-wrap"><HeroSection /></div></div>
-      <ServicesSection />
-      <PricingSection />
-      <StepsSection />
-      <OrderSection />
-      <FaqSection />
+      <div class="hero-shell">
+        <div class="section-wrap">
+          <HeroSection/>
+        </div>
+      </div>
+      <ServicesSection/>
+      <PricingSection/>
+      <StepsSection/>
+      <OrderSection/>
+      <FaqSection/>
     </main>
-    <SiteFooter />
+    <SiteFooter/>
     <a class="mobile-order-button" href="#order">Оставить заявку <span aria-hidden="true">→</span></a>
   </div>
 </template>

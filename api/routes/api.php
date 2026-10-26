@@ -8,4 +8,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 use App\Http\Controllers\LeadController;
+
 Route::post('/leads', [LeadController::class, 'store'])->middleware('throttle:5,1');

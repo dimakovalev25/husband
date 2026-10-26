@@ -3,6 +3,12 @@ export const PHONE_VIEW = "+375 XX XXX-XX-XX";
 export const TG = "your_telegram";
 export const PRICE_FROM = 25;
 
+export const WORK_HOURS = {
+  weekday: { start: 18, end: 22 },
+  weekend: { start: 9, end: 20 },
+};
+
+export const MAX_ESTIMATED_HOURS = 8;
 export const services = [
   { icon: "🪑", title: "Сборка мебели", text: "Шкафы, кровати, кухни и офисная мебель" },
   { icon: "📺", title: "Крепления и полки", text: "Телевизоры, карнизы, зеркала и картины" },

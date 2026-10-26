@@ -16,8 +16,7 @@ export default defineNuxtConfig({
     routeRules: {'/mainpage': {ssr: false}},
     modules: ['@nuxtjs/sitemap', '@nuxtjs/robots'],
     site: {url: 'https://example.by', name: 'Муж на час Гомель'},
-    runtimeConfig: {public: {apiBase: 'http://localhost:8000/api'}},
-    // routeRules: { '/': { prerender: true } },
+     // routeRules: { '/': { prerender: true } },
     app: {head: {htmlAttrs: {lang: 'ru'}}},
     css: ['~/assets/css/main.css'],
     vite: {
@@ -25,11 +24,19 @@ export default defineNuxtConfig({
             tailwindcss(),
         ],
     },
+    runtimeConfig: {
+        laravelApiBase: "http://127.0.0.1:8000",
+        public: {
+            turnstileSiteKey: ''
+        },
+    },
+
 })
 
 
 
 
+/*
 export default defineNuxtConfig({
     css: ['~/assets/css/main.css'],
     vite: {
@@ -37,4 +44,4 @@ export default defineNuxtConfig({
             tailwindcss(),
         ],
     },
-})
+})*/

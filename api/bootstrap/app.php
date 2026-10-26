@@ -13,13 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-      $middleware->trustProxies(at: '*');
+        $middleware->trustProxies(at: '*');
 
-      // Сессионная авторизация для /api/user (Sanctum)
-      $middleware->statefulApi();
+        // Сессионная авторизация для /api/user (Sanctum)
+        $middleware->statefulApi();
 
-      // Уже залогиненного с /login и /register отправляем на Nuxt
-      $middleware->redirectUsersTo(fn () => config('app.frontend_url') . '/mainpage');
+        // Уже залогиненного с /login и /register отправляем на Nuxt
+        $middleware->redirectUsersTo(fn () => config('app.frontend_url').'/mainpage');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

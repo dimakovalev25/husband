@@ -35,7 +35,7 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-      return redirect(config('app.frontend_url') . '/home');
-//        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect(config('app.frontend_url').'/home');
+        //        return redirect()->intended(route('dashboard', absolute: false));
     }
 }
