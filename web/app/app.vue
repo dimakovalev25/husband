@@ -5,6 +5,7 @@ import Index from "~/pages/Index.vue";
 <template>
   <Index/>
 </template>
+
 <style>
 html, body, #__nuxt {
   margin: 0;

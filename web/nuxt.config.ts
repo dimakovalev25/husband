@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
     nitro: {
         devProxy: Object.fromEntries(
@@ -17,6 +19,22 @@ export default defineNuxtConfig({
     runtimeConfig: {public: {apiBase: 'http://localhost:8000/api'}},
     // routeRules: { '/': { prerender: true } },
     app: {head: {htmlAttrs: {lang: 'ru'}}},
-    // css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css'],
+    vite: {
+        plugins: [
+            tailwindcss(),
+        ],
+    },
 })
 
+
+
+
+export default defineNuxtConfig({
+    css: ['~/assets/css/main.css'],
+    vite: {
+        plugins: [
+            tailwindcss(),
+        ],
+    },
+})
