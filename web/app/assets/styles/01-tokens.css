@@ -1,0 +1,78 @@
+@layer tokens {
+    :root {
+        /* --- Палитра (светлая) --- */
+        --bg: #f7f5ef;
+        --surface: #fffefa;
+        --surface-soft: #eeece3;
+        --text: #20241f;
+        --muted: #74786e;
+        --line: #deded3;
+        --accent: #d9f36a;
+        --accent-strong: #c6e64d;
+        --accent-ink: #20241f;
+        --accent-success: #7fa824;
+        --accent-success-strong: #91b82b;
+        --dark: #252b25;
+        --dark-ink: #f5f4ed;
+        --dark-muted: #bdc5b7;
+
+        /* --- Шкала отступов --- */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 24px;
+        --space-6: 32px;
+        --space-7: 48px;
+        --space-8: 64px;
+        --space-9: 96px;
+
+        /* --- Радиусы --- */
+        --radius-sm: 10px;
+        --radius-md: 16px;
+        --radius-lg: 24px;
+        --radius-pill: 999px;
+
+        /* --- Типографика --- */
+        --text-xs: 10px;
+        --text-sm: 11px;
+        --text-md: 12px;
+        --text-base: 13px;
+        --text-lg: 15px;
+        --text-xl: 21px;
+        --text-2xl: clamp(38px, 4.3vw, 58px);
+        --text-3xl: clamp(48px, 5.3vw, 76px);
+
+        /* --- Тени --- */
+        --shadow-sm: 0 4px 12px rgba(36, 42, 32, .06);
+        --shadow-md: 0 18px 55px rgba(36, 42, 32, .07);
+        --shadow-lg: 0 32px 70px rgba(20, 30, 15, .23);
+
+        /* --- Контейнер --- */
+        --container: 1180px;
+        --container-pad: 64px;
+        --container-pad-sm: 44px;
+        --container-pad-xs: 36px;
+        --container-pad-xxs: 28px;
+
+        color-scheme: light;
+    }
+
+    html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #171a17;
+        --surface: #202520;
+        --surface-soft: #292e28;
+        --text: #f0f1e9;
+        --muted: #a5ad9e;
+        --line: #383f36;
+        --accent: #d9f36a;
+        --accent-strong: #e5ff80;
+        --dark: #101310;
+        --dark-ink: #f0f1e9;
+        --dark-muted: #aab3a3;
+        --shadow-sm: 0 4px 12px rgba(0, 0, 0, .2);
+        --shadow-md: 0 18px 55px rgba(0, 0, 0, .2);
+        --shadow-lg: 0 32px 70px rgba(0, 0, 0, .3);
+    }
+}

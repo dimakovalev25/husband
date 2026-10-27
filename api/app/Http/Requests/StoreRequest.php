@@ -37,7 +37,6 @@ class StoreRequest extends FormRequest
                 'regex:/^\+375[\s(]*\d{2,3}[\s)]*[\d\s-]{6,15}$/',
             ],
             'district' => [
-                'required',
                 Rule::in(config('handyman.districts', [])),
             ],
             'address' => [
@@ -52,31 +51,26 @@ class StoreRequest extends FormRequest
                 'max:2000',
             ],
             'preferred_date' => [
-                'required',
                 'date_format:Y-m-d',
                 'after_or_equal:today',
             ],
             'preferred_time' => [
-                'required',
                 'date_format:H:i',
             ],
             'estimated_hours' => [
-                'required',
                 'integer',
                 'between:1,8',
             ],
             'consent' => [
-                'required',
                 'accepted',
             ],
             'services' => [
-                'required',
+              'required',
                 'array',
                 'min:1',
                 'max:10',
             ],
             'services.*' => [
-                'required',
                 'string',
                 'distinct',
                 Rule::in(config('handyman.services', [])),
@@ -92,7 +86,6 @@ class StoreRequest extends FormRequest
                 'max:5',
             ],
             'photos.*' => [
-                'required',
                 'file',
                 'mimes:jpg,jpeg,png',
                 'max:5120',

@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Уже залогиненного с /login и /register отправляем на Nuxt
         $middleware->redirectUsersTo(fn () => config('app.frontend_url').'/mainpage');
+
+      $middleware->validateCsrfTokens(except: [
+        'api/order',
+      ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

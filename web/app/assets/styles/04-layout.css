@@ -1,0 +1,35 @@
+@layer layout {
+    .section-wrap {
+        width: min(var(--container), calc(100% - var(--container-pad)));
+        margin-inline: auto;
+    }
+
+    .section {
+        padding-top: 105px;
+        padding-bottom: 110px;
+    }
+
+    .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 35px;
+        margin-bottom: var(--space-7);
+    }
+
+    .section-heading h2,
+    .pricing-layout h2,
+    .order-intro h2,
+    .faq-layout h2 {
+        font-size: var(--text-2xl);
+        margin: 17px 0 0;
+    }
+
+    .section-heading > p {
+        max-width: 350px;
+        margin: 0 0 5px;
+        color: var(--muted);
+        font-size: var(--text-base);
+        line-height: 1.9;
+    }
+}

@@ -1,0 +1,15 @@
+Done! Congratulations on your new bot. You will find it at t.me/husband_nitif_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+
+Use this token to access the HTTP API:
+8889939147:AAEs0k6ZaBvXuFxMSTVPQACWcwlggXIU1CA
+Keep your token secure and store it safely, it can be used by anyone to control your bot.
+
+For a description of the Bot API, see this page: https://core.telegram.org/bots/api
+
+получение ид бота, после того как отправили в него нормально е сообщение
+https://api.telegram.org/bot8889939147:AAEs0k6ZaBvXuFxMSTVPQACWcwlggXIU1CA/getUpdates
+
+
+тест работы бота
+https://api.telegram.org/bot8889939147:AAEs0k6ZaBvXuFxMSTVPQACWcwlggXIU1CA/sendMessage?chat_id=529307701&text=test
+{"ok":true,"result":{"message_id":6,"from":{"id":8889939147,"is_bot":true,"first_name":"HusbandNotification","username":"husband_nitif_bot"},"chat":{"id":529307701,"first_name":"\u041a\u043e\u0432\u0430\u043b\u0435\u0432 \u0414\u0438\u043c\u0430","username":"dimakovalev25","type":"private"},"date":1793100683,"text":"test"}}

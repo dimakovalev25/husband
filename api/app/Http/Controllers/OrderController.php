@@ -6,22 +6,13 @@ use App\Http\Requests\StoreRequest;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class OrderController extends Controller
 {
-    public function show()
-    {
-        var_dump('show method here!!!!!');
-    }
-
-    public function store(StoreRequest $request)
-    {
-        dd($request->all());
-    }
-
-    public function store2(StoreRequest $request): JsonResponse
+    public function createOrder(StoreRequest $request): JsonResponse
     {
         $data = $request->validated();
         $storedPhotos = [];
@@ -46,6 +37,32 @@ class OrderController extends Controller
                     'photos' => $storedPhotos,
                 ]);
             });
+
+
+          try {
+            $text = "🔥 <b>Новый заказ #{$order->id}</b>\n"
+              . "Имя: {$order->name}\n"
+              . "Телефон: {$order->phone}\n"
+              . "Район: {$order->district}\n"
+              . "Адрес: " . ($order->address ?? '—') . "\n"
+              . "Дата: {$order->preferred_date} {$order->preferred_time}\n"
+              . "Часы: {$order->estimated_hours}\n"
+              . "Услуги: " . implode(', ', $order->services ?? []) . "\n"
+              . "Описание: {$order->description}";
+
+            Http::timeout(5)->post(
+              'https://api.telegram.org/bot' . config('services.telegram.token') . '/sendMessage',
+              [
+                'chat_id' => config('services.telegram.chat_id'),
+                'text' => $text,
+                'parse_mode' => 'HTML',
+              ]
+            );
+          } catch (\Throwable $e) {
+            report($e); // заказ уже создан, телега упала — не роняем ответ
+          }
+
+
 
             return response()->json([
                 'id' => $order->id,

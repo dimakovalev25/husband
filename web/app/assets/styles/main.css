@@ -1,0 +1,24 @@
+@import "./node_modules/tailwindcss/dist/lib.d.mts";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "flowbite/src/themes/default";
+@import url("./08-responsive.css") layer(responsive);
+@import url("./01-tokens.css")     layer(tokens);
+@import url("./02-reset.css")      layer(reset);
+@import url("./03-base.css")       layer(base);
+@import url("./04-layout.css")     layer(layout);
+@import url("./05-components.css") layer(components);
+@import url("./06-sections.css")   layer(sections);
+@import url("./07-utilities.css")  layer(utilities);
+
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
+
+
+@layer reset, tokens, base, layout, components, sections, utilities, responsive;
+
+html, body, #__nuxt {
+    border: 10px solid red;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
