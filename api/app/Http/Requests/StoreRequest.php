@@ -61,9 +61,9 @@ class StoreRequest extends FormRequest
                 'integer',
                 'between:1,8',
             ],
-            'consent' => [
+/*            'consent' => [
                 'accepted',
-            ],
+            ],*/
             'services' => [
               'required',
                 'array',
