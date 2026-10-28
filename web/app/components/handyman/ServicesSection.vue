@@ -8,7 +8,7 @@ import { services } from "~/data/handyman";
     <div class="services-grid">
       <article v-for="(service, index) in services" :key="service.title" class="service-card">
         <div class="service-card__top"><span class="service-card__icon">{{ service.icon }}</span><span class="service-card__number">0{{ index + 1 }}</span></div>
-        <h3>{{ service.title }}</h3><p>{{ service.text }}</p><a href="#order" :aria-label="`Заказать услугу: ${service.title}`" class="service-card__link">Обсудить задачу <span>↗</span></a>
+        <h3>{{ service.title }}</h3><p>{{ service.text }}</p><a href="#order" :aria-label="`Заказать услугу: ${service.title}`" class="service-card__link">Создать заказ<span>↗</span></a>
       </article>
     </div>
   </section>

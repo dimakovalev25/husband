@@ -203,6 +203,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
     body.append("consent", consent.value ? "1" : "0");
     body.append("website", website.value);
     body.append("cf-turnstile-response", token);
+    // services.value.forEach(s => fd.append('services[]', s));
 
     selected.value.forEach((value) => body.append("services[]", value));
     photos.value.forEach((photo) => body.append("photos[]", photo.file));
@@ -240,13 +241,29 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
         body: buildFormData(turnstileToken),
       });*/
 
-      const response = await fetch("/api/order", {
+      // await fetch('http://127.0.0.1:8000/sanctum/csrf-cookie', {
+      //   credentials: 'include',
+      // });
+
+// 2. Читаем токен из document.cookie
+      const xsrf = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('XSRF-TOKEN='))
+        ?.split('=')[1];
+
+
+
+      const response = await fetch("http://127.0.0.1:8000/api/order", {
         method: "POST",
         headers: {
           Accept: "application/json",
+          'X-XSRF-TOKEN': decodeURIComponent(xsrf) || 'd',
         },
         body: buildFormData(turnstileToken),
       });
+
+      console.log('response api web front create order!')
+      console.log(response)
 
       const data = await response.json().catch(() => ({}));
 

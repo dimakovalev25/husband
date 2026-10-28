@@ -75,29 +75,29 @@ function onClearForm() {
 
 
         <h2>
-          Расскажите,<br/>
-          <span>что нужно сделать.</span>
+          Создайте заказ<br/>
         </h2>
+          <span>заполните все поля в форме, это поможет мне быстрее дать обратную связь! </span>
 
         <p>
-          Заполните форму — я уточню детали и подтвержу, смогу ли приехать в
-          выбранное время.
+          я Вам перезвоню, обговорим работу, цену работы и сроки выполнения
         </p>
 
-        <div class="order-contact">
+<!--        <div class="order-contact">
           <span class="order-contact__icon">✦</span>
           <div>
             <strong>Предпочитаете звонок?</strong>
             <a :href="`tel:${PHONE}`">Связаться с мастером</a>
           </div>
-        </div>
+        </div>-->
 
-        <div class="order-schedule">
-          <span>ПН–ПТ</span>
-          <strong>18:00–22:00</strong>
-          <span>СБ–ВС</span>
-          <strong>09:00–20:00</strong>
-        </div>
+<!--        <div class="order-schedule">-->
+<!--          <span>ПН–ПТ</span>-->
+<!--          <strong>18:00–22:00</strong>-->
+<!--          <span>СБ–ВС</span>-->
+<!--          <strong>09:00–20:00</strong>-->
+<!--        </div>-->
+
       </div>
 
       <form class="order-form" @submit.prevent="submitRequest">
@@ -294,30 +294,28 @@ function onClearForm() {
           <TurnstileWidget :key="turnstileWidgetKey" v-model:token="turnstileToken"/>
 
           <div class="order-form__actions">
-            <button
-                :disabled="submitting"
-                class="button button--primary button--submit"
-                type="submit"
-            >
-              {{ submitButtonText }}
-              <span aria-hidden="true">→</span>
-            </button>
+            <div>
+              <button
+                  :disabled="submitting"
+                  class="button button--primary button--submit"
+                  type="submit"
+              >
+                {{ submitButtonText }}   →
+              </button>
+            </div>
 
-            <button
-                :disabled="submitting"
-                class="button button--ghost button--clear"
-                type="button"
-                @click="onClearForm"
-            >
-              Очистить форму
-            </button>
+              <div>
+                <button
+                    :disabled="submitting"
+                    class="button button--ghost button--clear"
+                    type="button"
+                    @click="onClearForm"
+                >
+                  Очистить форму
+                </button>
+              </div>
+
           </div>
-
-
-<!--          <button :disabled="submitting" class="button button&#45;&#45;primary button&#45;&#45;submit">
-            {{ submitButtonText }}
-            <span aria-hidden="true">→</span>
-          </button>-->
 
         </fieldset>
 
@@ -342,22 +340,3 @@ function onClearForm() {
     </div>
   </section>
 </template>
-
-<style scoped>
-.order-form__actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.button--ghost {
-  background: transparent;
-  border: 1px solid currentColor;
-  color: inherit;
-}
-
-.button--ghost:hover:not(:disabled) {
-  opacity: 0.8;
-}
-</style>

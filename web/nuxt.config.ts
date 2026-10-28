@@ -16,9 +16,36 @@ export default defineNuxtConfig({
     routeRules: {'/mainpage': {ssr: false}},
     modules: ['@nuxtjs/sitemap', '@nuxtjs/robots'],
     site: {url: 'https://example.by', name: 'Муж на час Гомель'},
-     // routeRules: { '/': { prerender: true } },
-    app: {head: {htmlAttrs: {lang: 'ru'}}},
-    css: ['~/assets/css/main.css'],
+    // routeRules: { '/': { prerender: true } },
+    app: {
+        head: {
+            htmlAttrs: {lang: 'ru'},
+            script: [
+                {
+                    // Выполняется ДО первой отрисовки — тема не мигает
+                    innerHTML: `
+                        (function() {
+                            try {
+                                var stored = localStorage.getItem('theme');
+                                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                                var isDark = stored === 'dark' || (stored !== 'light' && prefersDark);
+                                var root = document.documentElement;
+                                if (isDark) {
+                                    root.classList.add('dark');
+                                    root.setAttribute('data-theme', 'dark');
+                                } else {
+                                    root.classList.remove('dark');
+                                    root.setAttribute('data-theme', 'light');
+                                }
+                            } catch (e) {}
+                        })();
+                    `,
+                    type: 'text/javascript',
+                },
+            ],
+        },
+    },
+    css: ['~/assets/styles/main.css'],
     vite: {
         plugins: [
             tailwindcss(),
@@ -32,16 +59,3 @@ export default defineNuxtConfig({
     },
 
 })
-
-
-
-
-/*
-export default defineNuxtConfig({
-    css: ['~/assets/css/main.css'],
-    vite: {
-        plugins: [
-            tailwindcss(),
-        ],
-    },
-})*/

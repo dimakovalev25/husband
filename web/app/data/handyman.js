@@ -1,6 +1,6 @@
-export const PHONE = "+375XXXXXXXXX";
-export const PHONE_VIEW = "+375 XX XXX-XX-XX";
-export const TG = "your_telegram";
+export const PHONE = "+375298677824";
+export const PHONE_VIEW = "+375298677824";
+export const TG = "@dimakovalev25";
 export const PRICE_FROM = 25;
 
 export const WORK_HOURS = {

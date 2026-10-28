@@ -12,12 +12,15 @@
         background: var(--bg);
     }
 
+
     .handyman-site {
+        /*border: 2px solid green;*/
         min-height: 100vh;
         overflow: hidden;
         background: var(--bg);
         color: var(--text);
         transition: background .25s, color .25s;
+
     }
 
     .eyebrow {

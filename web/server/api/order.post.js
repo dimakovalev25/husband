@@ -1,8 +1,8 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
-  return proxyRequest(
+/*  return proxyRequest(
     event,
-    `${config.laravelApiBase}/api/leads`,
-  );
+    `${config.laravelApiBase}/api/order`,
+  );*/
 });

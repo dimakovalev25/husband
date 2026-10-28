@@ -7,7 +7,7 @@
             width: min(100% - var(--container-pad-sm), 760px);
         }
 
-        .site-nav { display: none; }
+
 
         .hero {
             gap: 20px;
@@ -35,6 +35,8 @@
        BREAKPOINT: 700px
        ========================================================= */
     @media (max-width: 700px) {
+        .brand {width: 15px; height: 15px}
+        .brand__copy { display: none; }
         /* --- container --- */
         .section-wrap {
             width: calc(100% - var(--container-pad-xs));
@@ -228,6 +230,9 @@
         body { padding-bottom: 62px; }
     }
 
+    @media (max-width: 500px) {
+        .brand {display: none; }
+    }
     /* =========================================================
        BREAKPOINT: 380px
        ========================================================= */
