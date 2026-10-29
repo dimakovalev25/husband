@@ -37,10 +37,10 @@ useHead({
       <ServicesSection/>
       <OrderSection/>
       <FaqSection/>
-<!--      <PricingSection/>-->
-<!--      <StepsSection/>-->
+      <!--      <PricingSection/>-->
+      <!--      <StepsSection/>-->
     </main>
     <SiteFooter/>
-<!--    <a class="mobile-order-button" href="#order">Оставить заявку <span aria-hidden="true">→</span></a>-->
+    <!--    <a class="mobile-order-button" href="#order">Оставить заявку <span aria-hidden="true">→</span></a>-->
   </div>
 </template>

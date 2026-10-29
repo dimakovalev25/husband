@@ -234,7 +234,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
 /*      const response = await fetch("http://127.0.0.1:8000/store", {
         method: "POST",
         credentials: "same-origin",
-        headers: {
+        headers: {d
           Accept: "application/json",
           "X-CSRF-TOKEN": csrf,
         },
@@ -262,9 +262,6 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
         body: buildFormData(turnstileToken),
       });
 
-      console.log('response api web front create order!')
-      console.log(response)
-
       const data = await response.json().catch(() => ({}));
 
       if (response.status === 422) {
@@ -277,6 +274,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
 /*      if (response.status === 419) {
         throw new Error("Страница устарела. Обновите её и отправьте снова.");
       }*/
+
       if (!response.ok) {
         throw new Error(data.message || "Не удалось отправить заявку.");
       }
@@ -284,7 +282,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
       success.value = `Заявка №${data.id} принята. Свяжусь с вами для подтверждения времени и стоимости.`;
 
       resetForm();
-      draft.clear();        // ← чистим черновик после успешной отправки
+      draft.clear();
       resetTurnstile();
     } catch (error) {
       submitError.value =
@@ -338,7 +336,6 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
     removePhoto,
     submitRequest,
     clearForm,
-    // на случай, если компоненту нужен ручной контроль над черновиком
     draft,
   };
 }
