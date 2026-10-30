@@ -28,7 +28,7 @@ function minskToday() {
  * @param {() => string} getTurnstileToken — геттер токена из useTurnstile
  * @param {() => void} resetTurnstile — сброс токена/виджета после успеха
  */
-export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
+export function useOrderForm({ getCaptchaToken, resetCaptcha}) {
   // ── поля формы ─────────────────────────────────────────────
   const customerName = ref("");
   const phone = ref("");
@@ -203,6 +203,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
     body.append("consent", consent.value ? "1" : "0");
     body.append("website", website.value);
     body.append("cf-turnstile-response", token);
+    body.append("smart_token", token);   //
     // services.value.forEach(s => fd.append('services[]', s));
 
     selected.value.forEach((value) => body.append("services[]", value));
@@ -214,44 +215,34 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
   async function submitRequest() {
     if (submitting.value) return;
 
+    const captchaToken = getCaptchaToken();
+    if (!captchaToken) {
+      submitError.value = "Подтвердите, что вы не робот.";
+      submitting.value = false;
+      return;
+    }
+
     submitting.value = true;
     success.value = "";
     submitError.value = "";
     fieldErrors.value = {};
 
-    const turnstileToken = getTurnstileToken();
+/*    const turnstileToken = getTurnstileToken();
     if (!turnstileToken) {
       submitError.value = "Пройдите проверку Cloudflare перед отправкой. Перезагрузите страницу и ппройдите проверку еще раз (кликните по виджету)";
       submitting.value = false;
       return;
-    }
+    }*/
 
     try {
-      const csrf = document
+/*      const csrf = document
         .querySelector('meta[name="csrf-token"]')
-        ?.getAttribute("content");
+        ?.getAttribute("content");*/
 
-/*      const response = await fetch("http://127.0.0.1:8000/store", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {d
-          Accept: "application/json",
-          "X-CSRF-TOKEN": csrf,
-        },
-        body: buildFormData(turnstileToken),
-      });*/
-
-      // await fetch('http://127.0.0.1:8000/sanctum/csrf-cookie', {
-      //   credentials: 'include',
-      // });
-
-// 2. Читаем токен из document.cookie
       const xsrf = document.cookie
         .split('; ')
         .find(row => row.startsWith('XSRF-TOKEN='))
         ?.split('=')[1];
-
-
 
       const response = await fetch("http://127.0.0.1:8000/api/order", {
         method: "POST",
@@ -259,7 +250,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
           Accept: "application/json",
           'X-XSRF-TOKEN': decodeURIComponent(xsrf) || 'd',
         },
-        body: buildFormData(turnstileToken),
+        body: buildFormData(captchaToken),
       });
 
       const data = await response.json().catch(() => ({}));
@@ -271,9 +262,9 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
       if (response.status === 429) {
         throw new Error("Слишком много заявок. Попробуйте немного позже.");
       }
-/*      if (response.status === 419) {
+      if (response.status === 419) {
         throw new Error("Страница устарела. Обновите её и отправьте снова.");
-      }*/
+      }
 
       if (!response.ok) {
         throw new Error(data.message || "Не удалось отправить заявку.");
@@ -283,7 +274,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
 
       resetForm();
       draft.clear();
-      resetTurnstile();
+      // resetTurnstile();
     } catch (error) {
       submitError.value =
         error instanceof Error
@@ -291,6 +282,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
           : "Ошибка отправки. Попробуйте ещё раз.";
     } finally {
       submitting.value = false;
+      resetCaptcha();
     }
   }
 

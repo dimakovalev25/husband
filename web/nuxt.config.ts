@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import tailwindcss from '@tailwindcss/vite'
+// import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
     nitro: {
@@ -54,13 +54,14 @@ export default defineNuxtConfig({
     css: ['~/assets/styles/main.css'],
     vite: {
         plugins: [
-            tailwindcss(),
+            // tailwindcss(),
         ],
     },
     runtimeConfig: {
         laravelApiBase: "http://127.0.0.1:8000",
         public: {
-            turnstileSiteKey: ''
+            turnstileSiteKey: '',
+            smartcaptchaSitekey: process.env.NUXT_PUBLIC_SMARTCAPTCHA_SITEKEY
         },
     },
 

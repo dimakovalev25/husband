@@ -95,20 +95,7 @@
               </label>
             </div>
 
-<!--            <label class="consent">
-              <input v-model="consent" required type="checkbox" />
-              <span>
-                Согласен на обработку данных для ответа на вопрос.
-              </span>
-            </label>
-            <small v-if="fieldErrors.consent.length" class="field__error">
-              {{ fieldErrors.consent[0] }}
-            </small>-->
-
-            <TurnstileWidget
-                :key="widgetKey"
-                v-model:token="turnstileToken"
-            />
+            <YandexSmartCaptcha ref="captcha" v-model:token="captchaToken"/>
 
             <p v-if="submitError" class="form-message form-message--error" role="alert">
               {{ submitError }}
@@ -143,22 +130,24 @@
 
 <script setup>
 import { nextTick, onBeforeUnmount, ref, watch } from "vue";
-import TurnstileWidget from "~/components/handyman/TurnstileWidget.vue";
-import { useTurnstile } from "~/composables/useTurnstile";
 import { useQuestionForm } from "~/composables/useQuestionForm";
+import YandexSmartCaptcha from "~/components/handyman/uiComponents/YandexSmartCaptcha.vue";
+
+import {useYandexSmartCaptcha} from "~/composables/useYandexCaptcha";
+
+const {captcha, token: captchaToken, reset: resetCaptcha} = useYandexSmartCaptcha();
 
 const props = defineProps({
   open: { type: Boolean, default: false },
 });
 const emit = defineEmits(["update:open"]);
 
-const { widgetKey, token: turnstileToken, reset: resetTurnstile } = useTurnstile();
+// const { widgetKey, token: turnstileToken, reset: resetTurnstile } = useTurnstile();
 
 const {
   name,
   phone,
   question,
-  consent,
   website,
   submitting,
   success,
@@ -169,8 +158,8 @@ const {
   submitQuestion,
   clearForm,
 } = useQuestionForm({
-  getTurnstileToken: () => turnstileToken.value,
-  resetTurnstile,
+  getCaptchaToken: () => captchaToken.value,
+  resetCaptcha,
 });
 
 const modalRef = ref(null);
@@ -219,13 +208,12 @@ watch(
         document.removeEventListener("keydown", onKeydownTrap);
         previouslyFocused?.focus?.();
 
-        resetTurnstile();
+        // resetTurnstile();
         if (success.value) clearForm();
       }
     }
 );
 
-/* --- автозакрытие после успеха --- */
 watch(success, (val) => {
   if (!val) return;
   clearTimeout(autoCloseTimer);

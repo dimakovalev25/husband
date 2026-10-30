@@ -1,24 +1,10 @@
 <script setup>
 import {PHONE, districts, services} from "~/data/handyman";
-import TurnstileWidget from "~/components/handyman/TurnstileWidget.vue";
-import {useTurnstile} from "~/composables/useTurnstile";
 import {useOrderForm} from "~/composables/useOrderForm";
+import YandexSmartCaptcha from "~/components/handyman/uiComponents/YandexSmartCaptcha.vue";
+import {useYandexSmartCaptcha} from "~/composables/useYandexCaptcha";
 
-/*useHead({
-  script: [
-    {
-      src: "https://challenges.cloudflare.com/turnstile/v0/api.js",
-      async: true,
-      defer: true,
-    },
-  ],
-});*/
-
-const {
-  widgetKey,
-  token: turnstileToken,
-  reset: resetTurnstile,
-} = useTurnstile();
+const {captcha, token: captchaToken, reset: resetCaptcha} = useYandexSmartCaptcha();
 
 const {
   customerName,
@@ -28,32 +14,20 @@ const {
   description,
   date,
   time,
-  hours,
-  consent,
-  website,
   selected,
-  photos,
   submitting,
   success,
   submitError,
-  photoError,
   fieldErrors,
   minDate,
   timeSlots,
-  hoursOptions,
-  estimatedTotalFormatted,
-  hasFieldErrors,
   submitButtonText,
-  timePlaceholder,
   toggleService,
-  isServiceSelected,
-  addPhotos,
-  removePhoto,
   submitRequest,
   clearForm
 } = useOrderForm({
-  getTurnstileToken: () => turnstileToken.value,
-  resetTurnstile,
+  getCaptchaToken: () => captchaToken.value,
+  resetCaptcha,
 });
 
 function onClearForm() {
@@ -61,7 +35,7 @@ function onClearForm() {
     return;
   }
   clearForm();
-  resetTurnstile();      // сбрасываем и Turnstile, чтобы токен не висел
+  captcha.value?.reset();
 }
 
 </script>
@@ -89,7 +63,6 @@ function onClearForm() {
                     <a :href="`tel:${PHONE}`">Связаться с мастером</a>
                   </div>
                 </div>-->
-
         <!--        <div class="order-schedule">-->
         <!--          <span>ПН–ПТ</span>-->
         <!--          <strong>18:00–22:00</strong>-->
@@ -104,8 +77,6 @@ function onClearForm() {
           <div>
             <h3>Детали заказа</h3>
             <p>Поля со звёздочкой обязательны</p>
-
-
           </div>
           <span class="order-form__step">01 <i>/ 01</i></span>
         </div>
@@ -221,79 +192,7 @@ function onClearForm() {
             />
           </label>
 
-          <!--          <div class="estimate-row">
-                      <label class="field">
-                        <span>Примерная длительность</span>
-                        <select v-model.number="hours" name="estimated_hours">
-                          <option v-for="n in 8" :key="n" :value="n">{{ n }} ч.</option>
-                        </select>
-                      </label>
-
-                      <div>
-                        <span class="estimate-row__label">Ориентировочно от</span>
-                        &lt;!&ndash;              <strong>{{ money.format(estimatedTotal) }} BYN</strong>&ndash;&gt;
-                      </div>
-                    </div>
-
-                    <label class="field photo-field">
-                      <span>
-                        Фото задачи
-                        <small>JPG или PNG, до 5 файлов по 5 МБ</small>
-                      </span>
-                      <input
-                          accept="image/jpeg,image/png"
-                          multiple
-                          type="file"
-                          @change="addPhotos"
-                      />
-                    </label>-->
-
-          <!--          <p v-if="photoError" class="form-message form-message&#45;&#45;error" role="alert">
-                      {{ photoError }}
-                    </p>-->
-
-          <!--          <div v-if="photos.length" class="photo-grid">
-                      <div v-for="photo in photos" :key="photo.id" class="photo-item">
-                        <img :src="photo.url" alt="Фото задачи"/>
-                        <button
-                            :aria-label="`Удалить фото ${photo.id}`"
-                            type="button"
-                            @click="removePhoto(photo.id)"
-                        >
-                          ×
-                        </button>
-                      </div>
-                    </div>
-
-                    <div aria-hidden="true" class="honeypot" inert>
-                      <label>
-                        Ваш сайт
-                        <input
-                            v-model="website"
-                            autocomplete="off"
-                            name="website"
-                            tabindex="-1"
-                        />
-                      </label>
-                    </div>
-
-                    <label class="consent">
-                      <input v-model="consent" required type="checkbox"/>
-                      <span>
-                        Согласен на обработку данных для ответа на заявку, включая
-                        передачу описания и фото мастеру.
-                      </span>
-                    </label>
-
-                    <p class="form-hint">
-                      Не прикладывайте документы, банковские данные и фотографии
-                      посторонних людей.
-                    </p>-->
-
-          <TurnstileWidget
-              :key="widgetKey"
-              v-model:token="turnstileToken"
-          />
+          <YandexSmartCaptcha ref="captcha" v-model:token="captchaToken"/>
 
           <div class="order-form__actions">
             <div>

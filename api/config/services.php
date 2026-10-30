@@ -46,4 +46,7 @@ return [
     'chat_id' => env('TELEGRAM_CHAT_ID'),
   ],
 
+  // capcha yandex
+  'smartcaptcha' => ['secret' => env('SMARTCAPTCHA_SERVER_KEY')],
+
 ];

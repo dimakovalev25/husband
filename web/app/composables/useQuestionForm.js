@@ -12,7 +12,7 @@ function emptyFieldErrors() {
   };
 }
 
-export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
+export function useQuestionForm({ getCaptchaToken, resetCaptcha } = {}) {
   const name = ref("");
   const phone = ref("");
   const question = ref("");
@@ -64,10 +64,6 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
       fieldErrors.question.push("Вопрос слишком длинный (максимум 1000 символов).");
     }
 
-/*    if (!consent.value) {
-      fieldErrors.consent.push("Нужно согласие на обработку данных.");
-    }*/
-
     return !hasFieldErrors.value;
   }
 
@@ -75,6 +71,13 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
 
   async function submitQuestion() {
     if (submitting.value) return;
+
+    const captchaToken = getCaptchaToken();
+    if (!captchaToken) {
+      submitError.value = "Подтвердите, что вы не робот.";
+      submitting.value = false;
+      return;
+    }
 
     success.value = "";
     submitError.value = "";
@@ -89,22 +92,13 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
       submitError.value = "Проверьте отмеченные поля.";
       return;
     }
-
-    const token = typeof getTurnstileToken === "function" ? getTurnstileToken() : "";
-    if (!token) {
-      submitError.value = "Подтвердите, что вы не робот.";
-      return;
-    }
-
     submitting.value = true;
 
     try {
-
       const xsrf = document.cookie
         .split('; ')
         .find(row => row.startsWith('XSRF-TOKEN='))
         ?.split('=')[1];
-
 
       const res = await $fetch("http://127.0.0.1:8000/api/questions", {
         method: "POST",
@@ -116,7 +110,7 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
           name: name.value.trim(),
           phone: phone.value.trim(),
           question: question.value.trim(),
-          turnstileToken: token,
+          smart_token: captchaToken,
           website: website.value,
         },
       });
@@ -133,7 +127,6 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
       website.value = "";
       Object.keys(touched).forEach((k) => (touched[k] = false));
 
-      if (typeof resetTurnstile === "function") resetTurnstile();
     } catch (err) {
       const data = err?.data || err?.response?._data;
       if (data?.errors && typeof data.errors === "object") {
@@ -151,9 +144,9 @@ export function useQuestionForm({ getTurnstileToken, resetTurnstile } = {}) {
         submitError.value =
           data?.message || "Не удалось отправить вопрос. Попробуйте ещё раз.";
       }
-      if (typeof resetTurnstile === "function") resetTurnstile();
     } finally {
       submitting.value = false;
+      resetCaptcha();
     }
   }
 
