@@ -44,5 +44,11 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="box"></div>
+  <div class="ya-captcha" ref="box"></div>
 </template>
+
+<style scoped>
+.ya-captcha{
+  margin-bottom: 12px;
+}
+</style>

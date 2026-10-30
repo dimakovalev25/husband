@@ -2,12 +2,12 @@
 import SiteHeader from "~/components/handyman/SiteHeader.vue";
 import HeroSection from "~/components/handyman/HeroSection.vue";
 import ServicesSection from "~/components/handyman/ServicesSection.vue";
-import PricingSection from "~/components/handyman/PricingSection.vue";
 import OrderSection from "~/components/handyman/OrderSection.vue";
-import StepsSection from "~/components/handyman/StepsSection.vue";
 import FaqSection from "~/components/handyman/FaqSection.vue";
 import SiteFooter from "~/components/handyman/SiteFooter.vue";
 import QuoutesLine from "~/components/handyman/uiComponents/QuoutesLine.vue";
+import PricingSection from "~/components/handyman/PricingSection.vue";
+import StepsSection from "~/components/handyman/StepsSection.vue";
 
 useSeoMeta({
   title: "Муж на час в Гомеле — мелкий ремонт и сборка мебели",
@@ -25,6 +25,8 @@ useHead({
 </script>
 
 <template>
+
+
   <div class="handyman-site">
     <div class="section-wrap">
       <SiteHeader/>

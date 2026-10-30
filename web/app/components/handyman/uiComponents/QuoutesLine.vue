@@ -1,7 +1,8 @@
-<script setup>
-import {onBeforeUnmount, onMounted, ref} from 'vue'
 
-const quotes = ref([
+<script setup lang="ts">
+import { onMounted, onBeforeUnmount } from 'vue'
+
+const quotes = [
   'Труд без души — это просто действие. Труд с душой — это вклад в чью-то жизнь.',
   'Не насилуй душу не своей профессией. Профессия изначально должна быть актом любви. И никак не браком по расчету. Не забывайте о том, что дело всей жизни - это не дело, а именно ЖИЗНЬ! Харуки Мураками',
   'Качество — это делать правильно, даже когда никто не смотрит. Генри Форд',
@@ -38,45 +39,39 @@ const quotes = ref([
   'Инженер — это человек, который может объяснить, как работает то или иное устройство, но не может объяснить, почему оно не работает. М.Тэтчер',
   'Нет профессий с большим будущим, но есть профессионалы с большим будущим',
   'Американцы работают, если платят хорошо. Русские работают, если платят — хорошо. Владимир Леонидович Туровский',
-  "Один из достойнехших людей, который научил меня многому работал простым эксковаторщиком",
-  "Хочешь сделать хорошо --- сделай это сам"
-])
+  'Один из достойнехших людей, который научил меня многому работал простым эксковаторщиком',
+  'Хочешь сделать хорошо --- сделай это сам'
+]
 
+const currentQuote = useState('current-quote', () => '')
 
-const currentQuote = ref('')
-let interval = null
+let interval: ReturnType<typeof setInterval> | null = null
 
-// Функция для получения случайной цитаты
 function getRandomQuote() {
-  const randomIndex = Math.floor(Math.random() * quotes.value.length)
-  return quotes.value[randomIndex]
+  return quotes[Math.floor(Math.random() * quotes.length)]
 }
 
-// Функция для обновления цитаты
 function updateQuote() {
-  currentQuote.value = getRandomQuote()
+  currentQuote.value = getRandomQuote() || ''
 }
 
-// Инициализация - показываем случайную цитату сразу
-updateQuote()
-
-// Запускаем таймер для смены цитаты каждую минуту
 onMounted(() => {
-  interval = setInterval(updateQuote, 60000) // 60 секунд
+  updateQuote()
+  interval = setInterval(updateQuote, 60000)
 })
 
-// Очищаем таймер при уничтожении компонента
 onBeforeUnmount(() => {
   if (interval) {
     clearInterval(interval)
+    interval = null
   }
 })
 </script>
 
 <template>
   <div class="wrapper">
-    <transition mode="out-in" name="fade">
-      <div :key="currentQuote" class="quote-card" role="alert">
+    <Transition mode="out-in" name="fade">
+      <div :key="currentQuote" class="quote-card" role="status">
         <svg
             class="quote-icon"
             aria-hidden="true"
@@ -92,9 +87,10 @@ onBeforeUnmount(() => {
               d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
           />
         </svg>
+
         <p class="quote-text">{{ currentQuote }}</p>
       </div>
-    </transition>
+    </Transition>
   </div>
 </template>
 
@@ -116,11 +112,11 @@ onBeforeUnmount(() => {
   width: 100%;
   padding: 14px 18px 14px 22px;
   border-radius: 12px;
-  background: #f8fafc;
-  color: #334155;
+  background: var(--surface);
+  color: var(--text);
   font-size: 14px;
   line-height: 1.55;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-sm);
 }
 
 .quote-card::before {
@@ -139,22 +135,11 @@ onBeforeUnmount(() => {
   width: 16px;
   height: 16px;
   margin-top: 2px;
-  color: #6366f1;
+  color: var(--accent);
   opacity: 0.85;
 }
 
 .quote-text {
   margin: 0;
 }
-
-.quote-card {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
-}
-
-.quote-icon {
-  color: var(--accent);
-}
-
 </style>

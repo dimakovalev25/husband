@@ -3,5 +3,7 @@ import index from "~/pages/index.vue";
 </script>
 
 <template>
-  <index/>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

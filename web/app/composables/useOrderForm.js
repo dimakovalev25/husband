@@ -12,6 +12,7 @@ import {
   validatePhotoFiles,
 } from "~/utils/photos";
 import { formatBYN } from "~/utils/money";
+import {useYandexMetrika} from "~/composables/useYandexMetrika.js";
 
 const MINSK_TZ = "Europe/Minsk";
 
@@ -29,6 +30,7 @@ function minskToday() {
  * @param {() => void} resetTurnstile — сброс токена/виджета после успеха
  */
 export function useOrderForm({ getCaptchaToken, resetCaptcha}) {
+  const { goal } = useYandexMetrika();
   // ── поля формы ─────────────────────────────────────────────
   const customerName = ref("");
   const phone = ref("");
@@ -217,10 +219,12 @@ export function useOrderForm({ getCaptchaToken, resetCaptcha}) {
 
     const captchaToken = getCaptchaToken();
     if (!captchaToken) {
+      goal("order_captcha_missing");
       submitError.value = "Подтвердите, что вы не робот.";
       submitting.value = false;
       return;
     }
+    goal("order_submit");
 
     submitting.value = true;
     success.value = "";
@@ -253,6 +257,7 @@ export function useOrderForm({ getCaptchaToken, resetCaptcha}) {
         body: buildFormData(captchaToken),
       });
 
+      goal("order_success");
       const data = await response.json().catch(() => ({}));
 
       if (response.status === 422) {
@@ -276,6 +281,7 @@ export function useOrderForm({ getCaptchaToken, resetCaptcha}) {
       draft.clear();
       // resetTurnstile();
     } catch (error) {
+      goal("order_error", {message: error.message});
       submitError.value =
         error instanceof Error
           ? error.message

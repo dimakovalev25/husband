@@ -3,6 +3,7 @@ import {PHONE, PRICE_FROM} from "~/data/handyman";
 import {useScrollTo} from "~/composables/useScrollTo";
 
 const { scrollTo } = useScrollTo();
+const {goal} = useYandexMetrika()
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const { scrollTo } = useScrollTo();
         <button class="button button--primary button--large" @click.prevent.stop="scrollTo('order')">Создать заказ
         </button>
         <a class="button button--secondary button--large"
-           :href="`tel:${PHONE}`">{{ PHONE === "+375298677824" ? "Позвонить мастеру" : PHONE }}</a>
+           :href="`tel:${PHONE}`" @click="goal('call_click')">{{ PHONE === "+375298677824" ? "Позвонить мастеру" : PHONE }}</a>
       </div>
       <div class="hero__facts">
         <div><strong>от {{ PRICE_FROM }} BYN</strong><span>за час работы</span></div>

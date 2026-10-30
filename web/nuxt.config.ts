@@ -61,7 +61,8 @@ export default defineNuxtConfig({
         laravelApiBase: "http://127.0.0.1:8000",
         public: {
             turnstileSiteKey: '',
-            smartcaptchaSitekey: process.env.NUXT_PUBLIC_SMARTCAPTCHA_SITEKEY
+            smartcaptchaSitekey: process.env.NUXT_PUBLIC_SMARTCAPTCHA_SITEKEY,
+            ymId: process.env.NUXT_PUBLIC_YM_ID
         },
     },
 

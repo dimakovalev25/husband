@@ -6,6 +6,8 @@ import {useYandexSmartCaptcha} from "~/composables/useYandexCaptcha";
 
 const {captcha, token: captchaToken, reset: resetCaptcha} = useYandexSmartCaptcha();
 
+const {goal} = useYandexMetrika()
+
 const {
   customerName,
   phone,
@@ -55,24 +57,9 @@ function onClearForm() {
         <p>
           я Вам перезвоню, обговорим работу, цену работы и сроки выполнения
         </p>
-
-        <!--        <div class="order-contact">
-                  <span class="order-contact__icon">✦</span>
-                  <div>
-                    <strong>Предпочитаете звонок?</strong>
-                    <a :href="`tel:${PHONE}`">Связаться с мастером</a>
-                  </div>
-                </div>-->
-        <!--        <div class="order-schedule">-->
-        <!--          <span>ПН–ПТ</span>-->
-        <!--          <strong>18:00–22:00</strong>-->
-        <!--          <span>СБ–ВС</span>-->
-        <!--          <strong>09:00–20:00</strong>-->
-        <!--        </div>-->
-
       </div>
 
-      <form class="order-form" @submit.prevent="submitRequest">
+      <form class="order-form" @submit.prevent="submitRequest" @focusin.once="goal('order_form_start')">
         <div class="order-form__heading">
           <div>
             <h3>Детали заказа</h3>
@@ -102,6 +89,7 @@ function onClearForm() {
               <span>Ваше имя *</span>
               <input
                   v-model="customerName"
+                  class="ym-disable-keys"
                   autocomplete="name"
                   maxlength="100"
                   name="name"
@@ -114,6 +102,7 @@ function onClearForm() {
               <span>Телефон *</span>
               <input
                   v-model="phone"
+                  class="ym-disable-keys"
                   autocomplete="tel"
                   maxlength="30"
                   name="phone"
