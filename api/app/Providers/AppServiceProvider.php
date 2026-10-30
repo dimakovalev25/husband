@@ -22,14 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /*    RateLimiter::for('order-requests', function (Request $request) {
-              return [
-                Limit::perMinutes(10, 3)
-                  ->by('order:'.$request->ip()),
 
-                Limit::perDay(10)
-                  ->by('order-day:'.$request->ip()),
-              ];
-            });*/
+      //TODO limites api
+/*      RateLimiter::for('orders', function (Request $request) {
+        return [
+          Limit::perMinutes(10, 3)->by($request->ip()),
+          Limit::perDay(10)->by($request->ip()),
+        ];
+      });
+
+      RateLimiter::for('questions', function (Request $request) {
+        return [
+          Limit::perMinutes(10, 3)->by($request->ip()),
+          Limit::perDay(10)->by($request->ip()),
+        ];
+      });*/
     }
 }
