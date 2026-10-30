@@ -1,5 +1,8 @@
 <script setup>
 import {PHONE, PRICE_FROM} from "~/data/handyman";
+import {useScrollTo} from "~/composables/useScrollTo";
+
+const { scrollTo } = useScrollTo();
 </script>
 
 <template>

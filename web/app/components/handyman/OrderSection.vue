@@ -4,7 +4,7 @@ import TurnstileWidget from "~/components/handyman/TurnstileWidget.vue";
 import {useTurnstile} from "~/composables/useTurnstile";
 import {useOrderForm} from "~/composables/useOrderForm";
 
-useHead({
+/*useHead({
   script: [
     {
       src: "https://challenges.cloudflare.com/turnstile/v0/api.js",
@@ -12,7 +12,7 @@ useHead({
       defer: true,
     },
   ],
-});
+});*/
 
 const {
   widgetKey,
@@ -290,7 +290,10 @@ function onClearForm() {
                       посторонних людей.
                     </p>-->
 
-          <TurnstileWidget :key="turnstileWidgetKey" v-model:token="turnstileToken"/>
+          <TurnstileWidget
+              :key="widgetKey"
+              v-model:token="turnstileToken"
+          />
 
           <div class="order-form__actions">
             <div>

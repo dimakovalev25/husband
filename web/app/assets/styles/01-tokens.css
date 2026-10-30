@@ -7,6 +7,7 @@
         --text: #20241f;
         --muted: #74786e;
         --line: #deded3;
+        --line-accent: #ff0000;
         --accent: #d9f36a;
         --accent-strong: #c6e64d;
         --accent-ink: #20241f;
@@ -67,6 +68,7 @@
         --text: #f0f1e9;
         --muted: #a5ad9e;
         --line: #383f36;
+        --line-accent: #d9f36a;
         --accent: #d9f36a;
         --accent-strong: #e5ff80;
         --dark: #101310;

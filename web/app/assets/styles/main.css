@@ -21,9 +21,8 @@
 /* 4. Твои базовые стили — в самом конце или в слое base */
 @layer base {
     html, body, #__nuxt {
-        border: 12px solid red;
+        border: 12px solid var(--line-accent);
         margin: 0;
         padding: 0;
-        /*min-height: 100%;*/
     }
 }

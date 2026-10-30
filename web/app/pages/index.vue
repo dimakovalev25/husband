@@ -7,6 +7,7 @@ import OrderSection from "~/components/handyman/OrderSection.vue";
 import StepsSection from "~/components/handyman/StepsSection.vue";
 import FaqSection from "~/components/handyman/FaqSection.vue";
 import SiteFooter from "~/components/handyman/SiteFooter.vue";
+import QuoutesLine from "~/components/handyman/uiComponents/QuoutesLine.vue";
 
 useSeoMeta({
   title: "Муж на час в Гомеле — мелкий ремонт и сборка мебели",
@@ -27,6 +28,7 @@ useHead({
   <div class="handyman-site">
     <div class="section-wrap">
       <SiteHeader/>
+      <QuoutesLine/>
     </div>
     <main>
       <div class="hero-shell">

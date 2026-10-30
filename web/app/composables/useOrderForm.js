@@ -221,7 +221,7 @@ export function useOrderForm({ getTurnstileToken, resetTurnstile }) {
 
     const turnstileToken = getTurnstileToken();
     if (!turnstileToken) {
-      submitError.value = "Пройдите проверку Cloudflare перед отправкой.";
+      submitError.value = "Пройдите проверку Cloudflare перед отправкой. Перезагрузите страницу и ппройдите проверку еще раз (кликните по виджету)";
       submitting.value = false;
       return;
     }

@@ -1,5 +1,11 @@
 <script setup>
+import { ref } from 'vue'
 import {faq} from "~/data/handyman";
+import {useScrollTo} from "~/composables/useScrollTo";
+import QuestionModal from "~/components/handyman/uiComponents/QuestionModal.vue";
+
+const { scrollTo } = useScrollTo();
+const isQuestionOpen = ref(false)
 </script>
 
 <template>
@@ -8,10 +14,10 @@ import {faq} from "~/data/handyman";
       <div>
         <div class="eyebrow">Есть вопросы?</div>
         <h2>Лучше уточнить<br/><span>заранее.</span></h2>
-        <p>Если не нашли ответ — опишите задачу в заявке, и обсудим детали.</p>
+        <p>Если не нашли ответ — у Вас есть возможность задать Вопрос.</p>
         <!--        <a class="text-link" href="#order">Задать
                 вопрос <span>→</span></a>-->
-        <button class="button button--primary button--large" @click.prevent.stop="scrollTo('order')">Задать
+        <button class="button button--primary button--large"  @click="isQuestionOpen = true" @click.prevent.stop="scrollTo('order')">Задать
           вопрос
         </button>
       </div>
@@ -22,4 +28,6 @@ import {faq} from "~/data/handyman";
       </div>
     </div>
   </section>
+
+  <QuestionModal v-model:open="isQuestionOpen" />
 </template>
