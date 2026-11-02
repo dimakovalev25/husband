@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
       </div>
 
       <span class="brand__copy">
-        <strong>Муж на час</strong>
+        <strong>Мастер на час</strong>
         <small>Гомель</small>
       </span>
     </NuxtLink>
@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
   max-width: 480px;
   background: var(--surface, #fff);
   color: var(--text, #111);
-  border-radius: 24px 24px 0 0;
+  border-radius: 24px 24px 24px 24px;
   padding: 8px 16px calc(16px + env(safe-area-inset-bottom));
   box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18);
 
