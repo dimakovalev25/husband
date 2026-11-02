@@ -125,16 +125,27 @@
     }
     .order-layout {
         display: grid;
-        grid-template-columns: .75fr 1.25fr;
+        grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
         align-items: start;
-        gap: 75px;
+        gap: 32px;
     }
+    .order-layout > * {
+        min-width: 0;
+    }
+
     .order-intro {
         position: sticky;
         top: 30px;
         padding-top: 25px;
     }
     .order-intro h2 { font-size: clamp(40px, 4.5vw, 59px); }
+
+    .fieldset {
+        min-width: 0;      /* ← вот это критично */
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
 
     /* ---------- FAQ ---------- */
     .faq-section { padding: 105px 0; }
