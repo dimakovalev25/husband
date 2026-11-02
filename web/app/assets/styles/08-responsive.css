@@ -270,6 +270,7 @@
             gap: 10px;
         }
         .order-form__actions{
+            margin-top: 12px;
             flex-direction: column;
         }
 
@@ -277,7 +278,6 @@
             margin-bottom: 12px;
             max-height: 60px;
             width: 70px !important;
-            border: 2px solid green;
         }
 
 

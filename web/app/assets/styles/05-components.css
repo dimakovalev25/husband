@@ -170,6 +170,11 @@
         padding: 16px 23px;
     }
 
+    .button--small {
+        min-height: 40px;
+        padding: 12px 14px;
+    }
+
     .button--ghost {
         background: var(--red);
         margin-top: var(--space-1);
@@ -650,6 +655,7 @@
     }
 
     .order-form__actions {
+        margin-top: 12px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

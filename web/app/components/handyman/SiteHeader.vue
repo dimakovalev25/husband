@@ -62,7 +62,7 @@ onBeforeUnmount(() => {
       <NuxtLink
           to="/#order"
           @click.prevent.stop="scrollTo('order')"
-          class="button button--secondary button--large"
+          class="button button--secondary button--small"
       >
         Создать заказ
       </NuxtLink>
@@ -70,12 +70,12 @@ onBeforeUnmount(() => {
       <NuxtLink
           to="/#faq"
           @click.prevent.stop="scrollTo('faq')"
-          class="button button--secondary button--large"
+          class="button button--secondary button--small"
       >
         Вопросы
       </NuxtLink>
 
-      <NuxtLink to="/review"  class="button button--secondary button--large">
+      <NuxtLink to="/review"  class="button button--secondary button--small">
         Отзывы
       </NuxtLink>
     </nav>

@@ -14,7 +14,7 @@ const {goal} = useYandexMetrika()
         new Date().getFullYear()
       }} · Муж на час в Гомеле
       </span>
-      <span> 
+      <span>
         Самозанятый  <span class="blurred">
          Ковалев А.А. Номер:888888888888
       </span>
