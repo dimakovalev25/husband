@@ -62,6 +62,7 @@ class StoreRequest extends FormRequest
         'between:1,8',
       ],
       'services' => [
+        'required',
         'nullable',
         'array',
         'min:1',

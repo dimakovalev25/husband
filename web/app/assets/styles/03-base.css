@@ -41,4 +41,21 @@
         background: var(--accent-success-strong);
         box-shadow: 0 0 0 4px rgba(141, 187, 45, .13);
     }
+
+    .required-label{
+
+    }
+
+    .required-label::after {
+        content: " *";
+        color: red;
+        width: 8px;
+        height: 8px;
+    }
+
+    .red-star{
+        color: red;
+        width: 8px;
+        height: 8px;
+    }
 }

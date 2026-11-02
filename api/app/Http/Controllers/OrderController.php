@@ -13,12 +13,13 @@ use App\Services\YandexCaptcha;
 
 class OrderController extends Controller
 {
+
   public function createOrder(StoreRequest $request): JsonResponse
   {
     $data = $request->validated();
     $storedPhotos = [];
 
-      if (!YandexCaptcha::verify($r->input('smart_token'), $r->ip())) {
+      if (!YandexCaptcha::verify($request->input('smart_token'), $request->ip())) {
       return response()->json([
         'message' => 'Проверка капчи не пройдена. Попробуйте ещё раз.',
         'errors' => ['smart_token' => ['Проверка капчи не пройдена.']],
@@ -42,7 +43,7 @@ class OrderController extends Controller
           'preferred_time' => $data['preferred_time'],
           'estimated_hours' => $data['estimated_hours'],
           'consent' => true,
-          'services' => $data['services'],
+          'services' => $data['services'] ? $data['services']  : 'not found' ,
           'photos' => $storedPhotos,
         ]);
       });

@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Http;
 
 class QuestionController extends Controller
 {
-  public function createQuestion(QuestionRequest $r)
+  public function createQuestion(QuestionRequest $request)
   {
-    if (!YandexCaptcha::verify($r->input('smart_token'), $r->ip())) {
+    if (!YandexCaptcha::verify($request->input('smart_token'), $request->ip())) {
       return response()->json([
         'message' => 'Проверка капчи не пройдена. Попробуйте ещё раз.',
         'errors' => ['smart_token' => ['Проверка капчи не пройдена.']],
       ], 422);
     }
 
-    $data = $r->validated();
+    $data = $request->validated();
 
     Question::create($data);
 

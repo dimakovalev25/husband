@@ -63,13 +63,14 @@ function onClearForm() {
         <div class="order-form__heading">
           <div>
             <h3>Детали заказа</h3>
-            <p>Поля со звёздочкой обязательны</p>
+            <p>Поля с красной звёздочкой обязательны</p>
+            <p>Заполните все поля, это поможет дать правильную оценку Вашему заказу</p>
           </div>
           <span class="order-form__step">01 <i>/ 01</i></span>
         </div>
 
         <fieldset :disabled="submitting">
-          <legend>Какие работы нужны?</legend>
+          <legend  class="required-label">Какие работы нужны? Выберите нужную!</legend>
 
           <div class="service-chips">
             <button
@@ -86,7 +87,7 @@ function onClearForm() {
 
           <div class="form-grid">
             <label class="field">
-              <span>Ваше имя *</span>
+              <span class="required-label">Ваше имя</span>
               <input
                   v-model="customerName"
                   class="ym-disable-keys"
@@ -99,7 +100,7 @@ function onClearForm() {
             </label>
 
             <label class="field">
-              <span>Телефон *</span>
+              <span  class="required-label">Телефон </span>
               <input
                   v-model="phone"
                   class="ym-disable-keys"
@@ -113,7 +114,7 @@ function onClearForm() {
             </label>
 
             <label class="field">
-              <span>Район *</span>
+              <span  class="required-label">Район </span>
               <select v-model="district" name="district" required>
                 <option value="">Выберите район</option>
                 <option v-for="item in districts" :key="item" :value="item">
@@ -123,18 +124,18 @@ function onClearForm() {
             </label>
 
             <label class="field">
-              <span>Улица и дом</span>
+              <span  class="required-label">Улица, дом, подъезд, квартира</span>
               <input
                   v-model="address"
                   autocomplete="street-address"
                   maxlength="200"
                   name="address"
-                  placeholder="Необязательно"
+                  placeholder="Улица, дом, подъезд, квартира"
               />
             </label>
 
             <label class="field">
-              <span>Желаемая дата *</span>
+              <span  class="required-label">Желаемая дата </span>
               <input
                   v-model="date"
                   :min="minDate"
@@ -146,7 +147,7 @@ function onClearForm() {
             </label>
 
             <label class="field">
-              <span>Время приезда *</span>
+              <span  class="required-label">Время приезда </span>
               <select
                   v-model="time"
                   :disabled="!date"
@@ -169,7 +170,7 @@ function onClearForm() {
           </p>
 
           <label class="field">
-            <span>Опишите задачу *</span>
+            <span  class="required-label">Опишите задачу </span>
             <textarea
                 v-model="description"
                 maxlength="2000"
