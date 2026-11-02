@@ -48,7 +48,5 @@ defineExpose({
 </template>
 
 <style scoped>
-.ya-captcha{
-  margin-bottom: 12px;
-}
+
 </style>
